@@ -13,7 +13,7 @@ public class BonusPointsGenerator {
     @EventListener(OrderCreatedEvent.class)
     public void onOrderCreated(OrderCreatedEvent orderCreatedEvent) {
         LOGGER.info("Order with No- {} has been created! " +
-                        "I'm going to calculate bonus points",
+                        "I'm going to calculate bonus points!",
                 orderCreatedEvent.getOrderId());
     }
 }
