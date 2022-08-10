@@ -27,3 +27,71 @@ $('body').on('click', 'button.delete-btn', function () {
         method: 'DELETE'
     }).then(_ => reloadBooks())
 });
+
+// $(document).ready(function () {
+//     let book = {};
+//     $('#submit-btn').click(function () {
+//         book.title = $('title').val();
+//         book.author = $('author').val();
+//         book.isbn = $('isbn').val();
+//         let bookObj = JSON.stringify(book);
+//         $.ajax({
+//             url:  'http://localhost:8080/books/createBook',
+//             method: 'POST',
+//             data: bookObj,
+//             contentType: 'application/json',
+//             success: function () {
+//                 alert("Saved successfully")
+//             },
+//             error: function (error) {
+//                 alert(error)
+//             }
+//         })
+//     })
+// })
+
+$(document).ready(
+    function () {
+
+        // SUBMIT FORM
+        $("#bookForm").submit(function (event) {
+            // Prevent the form from submitting via the browser.
+            event.preventDefault();
+            ajaxPost();
+        });
+
+        function ajaxPost() {
+
+            // PREPARE FORM DATA
+            var formData = {
+                title: $("#title").val(),
+                isbn: $("#isbn").val(),
+                //author: $("#author").val()
+            }
+
+            // DO POST
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "http://localhost:8080/books/createBook",
+                data: JSON.stringify(formData),
+                dataType: 'json',
+                success: function (result) {
+                    if (result.status == "success") {
+                        $("#postResultDiv").html(
+                            "" + result.data.bookName
+                            + "Post Successfully! <br>"
+                            + "---> Congrats !!" + "</p>");
+                    } else {
+                        $("#postResultDiv").html("<strong>Error</strong>");
+                    }
+                    console.log(result);
+                },
+                error: function (e) {
+                    alert("Error!")
+                    console.log("ERROR: ", e);
+                }
+            });
+
+        }
+    })

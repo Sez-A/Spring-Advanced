@@ -49,8 +49,8 @@ public class BooksController {
                 .build();
     }
 
-    @PostMapping
-    public ResponseEntity<BookDTO> createBook(@RequestBody BookDTO bookDTO,
+    @PostMapping("/createBook")
+    public ResponseEntity<Object> createBook(@RequestBody BookDTO bookDTO,
                                               UriComponentsBuilder builder) {
         long bookId = this.bookService.createBook(bookDTO);
 
